@@ -2,7 +2,7 @@ const expenseRoute =  require('express').Router(),
       request = require('superagent'),
       mongodb = require('mongodb').MongoClient;
       //var url = "mongodb://admin:admin123@ds111559.mlab.com:11559/helpinghearts";
-      var url="mongodb://172.20.0.2:27017/";
+      var url="mongodb://process.env.MONGO_HOST:27017/";
 
 
 expenseRoute.post('/addExpense',function (req, res) {
@@ -14,6 +14,7 @@ var spentFor=req.query.spentFor;
 var spentTowards=req.query.spentTowards;
 var modeOfCash=req.query.modeOfCash;
 var description=req.query.description;
+console.log("inside expense route");
   mongodb.connect(url,function(err,client){
     if(err)
     {

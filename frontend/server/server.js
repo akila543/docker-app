@@ -7,7 +7,8 @@ const http = require('http')
     , assert = require('assert')
     , PORT = process.env.PORT || 1104 ;
 const expenseRoute = require('./routes/expense.route.js');
-
+ var mongodb = require('mongodb').MongoClient;
+      var url="mongodb://process.env.MONGO_HOST:27017/";
 app.use(function(req, res, next) {
  	res.header("Access-Control-Allow-Origin", "*");
  	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -22,7 +23,18 @@ app.use('/',(req,res,next)=>{
 
 },expenseRoute);
 
+  mongodb.connect(url,function(err,client){
+    if(err)
+    {
+      throw err;
+    }
+    else{
+      console.log('Connected to MongoDB');
+    
+    }
 
+
+  });
 
 //App server ---------->
 module.exports = server.listen(PORT, err => {
